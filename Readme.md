@@ -7,6 +7,8 @@
 - 테스트 : 객관식 20문항 (70점)
 - Vibe 코딩 프로젝트 (30점)
 
+# 테스트 및 과제 제출 링크
+- https://forms.office.com/r/A7c9gJJiYJ
 
 
 ## Vibe Coding 프로젝트 평가 안내
