@@ -7,6 +7,9 @@ public interface ICustomerService
     Customer? GetCustomer(int id);
     Customer? SearchCustomer(string name);
     List<Customer> GetAllCustomers();
+    Customer CreateCustomer(Customer customer);
+    Customer? UpdateCustomer(int id, Customer customer);
+    bool DeleteCustomer(int id);
 }
 
 public class CustomerService : ICustomerService
@@ -37,5 +40,45 @@ public class CustomerService : ICustomerService
     public List<Customer> GetAllCustomers()
     {
         return Customers;
+    }
+
+    public Customer CreateCustomer(Customer customer)
+    {
+        var nextId = Customers.Count == 0 ? 1 : Customers.Max(c => c.Id) + 1;
+        var newCustomer = new Customer
+        {
+            Id = nextId,
+            Name = customer.Name,
+            Email = customer.Email,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        Customers.Add(newCustomer);
+        return newCustomer;
+    }
+
+    public Customer? UpdateCustomer(int id, Customer customer)
+    {
+        var existing = Customers.FirstOrDefault(c => c.Id == id);
+        if (existing == null)
+        {
+            return null;
+        }
+
+        existing.Name = customer.Name;
+        existing.Email = customer.Email;
+        return existing;
+    }
+
+    public bool DeleteCustomer(int id)
+    {
+        var customer = Customers.FirstOrDefault(c => c.Id == id);
+        if (customer == null)
+        {
+            return false;
+        }
+
+        Customers.Remove(customer);
+        return true;
     }
 }
